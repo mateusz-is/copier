@@ -7,6 +7,6 @@ namespace Zadanie2
 {
     public interface IFax : IDevice
     {
-        void Send(IDocument document, string faxNumber);
+        void Send(IDocument document, string faxCounter);
     }
 }

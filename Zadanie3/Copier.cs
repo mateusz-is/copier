@@ -1,25 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ver1;
 
-namespace Zadanie2
+
+namespace ver1
 {
-   public class MultifunctionalDevice : BaseDevice, IPrinter, IScanner, IFax
+    public class Copier : BaseDevice, IPrinter, IScanner
     {
-        public MultifunctionalDevice(string faxCounter)
-        {
-            FaxCounter = faxCounter;
-        }
-        private readonly object faxCounter;
-
         public int PrintCounter { get; private set; } = 0;
         public int ScanCounter { get; private set; } = 0;
-        public int SendCounter { get; private set; } = 0;
-
-        public string FaxCounter { get; }
-
-      
 
         public void Print(in IDocument document)
         {
@@ -58,27 +45,11 @@ namespace Zadanie2
                 ScanCounter++;
             Console.WriteLine($"{DateTime.Today} Scan: {document.GetFileName()}");
         }
-
         public void ScanAndPrint()
         {
             Scan(out IDocument newDocument);
             Print(newDocument);
         }
-        public void ScanAndSend(string faxCounter)
-        {
-            Scan(out IDocument doc);
-            Send(doc, faxCounter);
-        }
 
-        public void Send(IDocument document, string faxCounter)
-        {
-            if (state == IDevice.State.on)
-            {
-                SendCounter++;
-                Console.WriteLine($"{DateTime.Today} Sent: {document.GetFileName()} from page: {this.FaxCounter} to page: {faxCounter}");
-            }
-        }
-
-        
     }
 }

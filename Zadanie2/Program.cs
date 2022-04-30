@@ -7,11 +7,14 @@ namespace Zadanie2
     {
         static void Main(string[] args)
         {
-            var device = new MultifunctionalDevice("123456789");
+            var device = new MultifunctionalDevice("2");
             device.PowerOn();
+            device.Print(new PDFDocument("abc.pdf"));
+            device.Send(new PDFDocument("abc.pdf"), "23");
+ 
+            device.ScanAndSend("23");
 
-            device.Send(new PDFDocument("abc.pdf"), "987654321");
-            device.ScanAndSend("987654321");
+            
 
             device.PowerOff();
         }
