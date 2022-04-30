@@ -12,7 +12,8 @@ namespace ver1
             xerox.Print(in doc1);
             IDocument doc2;
             xerox.Scan(out doc2);
-            
+            System.Console.WriteLine("************** ScanAndPrint function **************");
+            xerox.ScanAndPrint();
             System.Console.WriteLine("************** End ScanAndPrint function **************");
             System.Console.WriteLine("************** Counters **************");
             System.Console.WriteLine("Device counter: " + xerox.Counter);

@@ -45,7 +45,11 @@ namespace ver1
                 ScanCounter++;
             Console.WriteLine($"{DateTime.Today} Scan: {document.GetFileName()}");
         }
-
+        public void ScanAndPrint()
+        {
+            Scan(out IDocument newDocument);
+            Print(newDocument);
+        }
 
     }
 }
