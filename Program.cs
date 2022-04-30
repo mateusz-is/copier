@@ -1,12 +1,18 @@
 ﻿using System;
 
-namespace Copier
+namespace ver1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            var xerox = new Copier();
+            xerox.PowerOn();
+            IDocument doc1 = new PDFDocument("aaa.pdf");
+            xerox.Print(in doc1);
+
+            IDocument doc2;
+           
         }
     }
 }
