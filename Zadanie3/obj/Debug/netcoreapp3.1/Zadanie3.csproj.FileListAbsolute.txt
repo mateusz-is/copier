@@ -1,0 +1,14 @@
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\bin\Debug\netcoreapp3.1\Zadanie3.exe
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\bin\Debug\netcoreapp3.1\Zadanie3.deps.json
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\bin\Debug\netcoreapp3.1\Zadanie3.runtimeconfig.json
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\bin\Debug\netcoreapp3.1\Zadanie3.runtimeconfig.dev.json
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\bin\Debug\netcoreapp3.1\Zadanie3.dll
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\bin\Debug\netcoreapp3.1\Zadanie3.pdb
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.csproj.AssemblyReference.cache
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.AssemblyInfoInputs.cache
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.AssemblyInfo.cs
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.csproj.CoreCompileInputs.cache
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.dll
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.pdb
+C:\Users\Mateusz\source\repos\Copier\Zadanie3\obj\Debug\netcoreapp3.1\Zadanie3.genruntimeconfig.cache
