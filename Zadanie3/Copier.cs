@@ -1,55 +1,93 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-
-namespace ver1
+namespace zad3
 {
-    public class Copier : BaseDevice, IPrinter, IScanner
+    public class Copier : BaseDevice
     {
-        public int PrintCounter { get; private set; } = 0;
-        public int ScanCounter { get; private set; } = 0;
+        protected IPrinter _printer;
+        protected IScanner _scanner;
+
+        public Copier(IPrinter printer, IScanner scanner)
+        {
+            _printer = printer;
+            _scanner = scanner;
+        }
+
+        public int PrintCounter { get; private set; }
+        public int ScanCounter { get; protected set; }
+
+        public void PrinterOn()
+        {
+            this._printer.PowerOn();
+        }
+
+        public void PrinterOff()
+        {
+            this._printer.PowerOff();
+        }
+
+        public void ScannerOn()
+        {
+            this._scanner.PowerOn();
+        }
+
+        public void ScannerOff()
+        {
+            this._scanner.PowerOff();
+        }
 
         public void Print(in IDocument document)
         {
-            if (state == IDevice.State.on)
-                PrintCounter++;
-            Console.WriteLine($"{DateTime.Today} Print: {document.GetFileName()}");
-        }
-
-        public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG)
-        {
-            string fileType;
-
-            switch (formatType)
+            if (GetState() == IDevice.State.on)
             {
-                case IDocument.FormatType.JPG:
-                    fileType = "Image";
-                    break;
-                case IDocument.FormatType.PDF:
-                    fileType = "PDF";
-                    break;
-                default:
-                    fileType = "Text";
-                    break;
+                PrinterOn();
+                _printer.Print(in document);
+                PrintCounter++;
+                PrinterOff();
             }
-            string name = string.Format("{0}imageFile{1}.{2}", fileType, ScanCounter + 1, formatType.ToString().ToLower());
-
-            if (formatType == IDocument.FormatType.TXT)
-                document = new TextDocument(name);
-            if (formatType == IDocument.FormatType.JPG)
-                document = new ImageDocument(name);
-            else
-                document = new PDFDocument(name);
-
-
-            if (state == IDevice.State.on)
-                ScanCounter++;
-            Console.WriteLine($"{DateTime.Today} Scan: {document.GetFileName()}");
         }
-        public void ScanAndPrint()
+
+        public void Scan(out IDocument document, IDocument.FormatType type = IDocument.FormatType.JPG)
         {
-            Scan(out IDocument newDocument);
-            Print(newDocument);
+            if (type == IDocument.FormatType.JPG)
+                document = new ImageDocument("HolidayPhoto.jpg");
+            else if (type == IDocument.FormatType.PDF)
+                document = new PDFDocument("DocumentPDF.pdf");
+            else
+                document = new TextDocument("TextFile.txt");
+
+            if (GetState() == IDevice.State.on)
+            {
+                ScannerOn();
+                _scanner.Scan(out document, type);
+                ScanCounter++;
+                ScannerOff();
+            }
         }
 
+        public void ScanAndPrint(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG)
+        {
+            if (formatType == IDocument.FormatType.JPG)
+                document = new ImageDocument("HolidayPhoto.jpg");
+            else if (formatType == IDocument.FormatType.PDF)
+                document = new PDFDocument("DocumentPDF.pdf");
+            else
+                document = new TextDocument("TextScan.txt");
+
+            if (GetState() == IDevice.State.on)
+            {
+                ScannerOn();
+                _scanner.Scan(out document, formatType);
+                ScanCounter++;
+                ScannerOff();
+
+                PrinterOn();
+                _printer.Print(in document);
+                PrintCounter++;
+                PrinterOff();
+            }
+        }
     }
 }

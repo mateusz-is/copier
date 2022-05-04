@@ -1,28 +1,25 @@
 ﻿using System;
 
-namespace ver1
+namespace zad3
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var xerox = new Copier();
-            xerox.PowerOn();
-            IDocument doc1 = new PDFDocument("aaa.pdf");
-            xerox.Print(in doc1);
-            IDocument doc2;
-            xerox.Scan(out doc2);
-            System.Console.WriteLine("************** ScanAndPrint function **************");
-            xerox.ScanAndPrint();
-            System.Console.WriteLine("************** End ScanAndPrint function **************");
-            System.Console.WriteLine("************** Counters **************");
-            System.Console.WriteLine("Device counter: " + xerox.Counter);
-            System.Console.WriteLine("Print counter: " + xerox.PrintCounter);
-            System.Console.WriteLine("Scan counter: " + xerox.ScanCounter);
-            System.Console.WriteLine("************** End Counters **************");
+            var printer = new PrintDevice();
+            var scanner = new ScanDevice();
 
-            xerox.PowerOff();
+            var copier = new Copier(printer, scanner);
+            copier.PowerOn();
 
+            var MyDocument = new PDFDocument("MyDocument.pdf");
+            var YourDocument = new PDFDocument("YourDocument.pdf");
+
+            copier.Print(YourDocument);
+            copier.Print(MyDocument);
+            copier.ScanAndPrint(out IDocument doc, IDocument.FormatType.PDF);
+
+            copier.PowerOff();
         }
     }
 }

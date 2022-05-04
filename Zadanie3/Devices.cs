@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ver1
+namespace zad3
 {
     public interface IDevice
     {
@@ -22,17 +22,19 @@ namespace ver1
         public void PowerOff()
         {
             state = IDevice.State.off;
-            Console.WriteLine("... Device is off !");
+            Console.WriteLine("... {0} is off !", this.GetType().Name);
         }
 
         public void PowerOn()
         {
-            state = IDevice.State.on;
-            Console.WriteLine("Device is on ...");
+            if (state == IDevice.State.off)
+                Counter++;
 
+            state = IDevice.State.on;
+            Console.WriteLine("{0} is on ...", this.GetType().Name);
         }
 
-        public int Counter { get; private set; } = 3;
+        public int Counter { get; private set; } = 0;
     }
 
     public interface IPrinter : IDevice
@@ -44,10 +46,77 @@ namespace ver1
         void Print(in IDocument document);
     }
 
+    public interface IFax : IDevice
+    {
+        void Send(IDocument document, string faxAddress);
+    }
+
     public interface IScanner : IDevice
     {
         // dokument jest skanowany, jeśli urządzenie włączone
         // w przeciwnym przypadku nic się dzieje
         void Scan(out IDocument document, IDocument.FormatType formatType);
+    }
+
+
+    public class PrintDevice : BaseDevice, IPrinter
+    {
+        public void Print(in IDocument document)
+        {
+            if (state == IDevice.State.on)
+                Console.WriteLine($"{DateTime.Today} Print document: {document.GetFileName()}");
+        }
+    }
+
+    public class ScanDevice : BaseDevice, IScanner
+    {
+        public void Scan(out IDocument document, IDocument.FormatType formatType = IDocument.FormatType.JPG)
+        {
+            string sType;
+
+            switch (formatType)
+            {
+                case IDocument.FormatType.TXT:
+                    sType = "Text";
+                    break;
+                case IDocument.FormatType.PDF:
+                    sType = "PDF";
+                    break;
+                default:
+                    sType = "Image";
+                    break;
+            }
+
+            string name = string.Format("{0}Scan.{1}", sType, formatType.ToString().ToLower());
+
+            if (formatType == IDocument.FormatType.PDF)
+                document = new PDFDocument(name);
+            if (formatType == IDocument.FormatType.JPG)
+                document = new ImageDocument(name);
+            else
+                document = new TextDocument(name);
+
+            if (state == IDevice.State.on)
+            {
+                Console.WriteLine($"{DateTime.Today} Scan document: {document.GetFileName()}");
+            }
+        }
+    }
+
+    public class Fax : BaseDevice, IFax
+    {
+        public string FaxNumber { get; }
+        public Fax(string faxNumber)
+        {
+            FaxNumber = faxNumber;
+        }
+
+        public void Send(IDocument document, string faxAddress)
+        {
+            if (state == IDevice.State.on)
+            {
+                Console.WriteLine($"{DateTime.Today} Sent document: {document.GetFileName()} from: {this.FaxNumber} to: {faxAddress}");
+            }
+        }
     }
 }
